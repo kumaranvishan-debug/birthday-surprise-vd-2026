@@ -1,1 +1,561 @@
 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>My Birthday Surprise ❤️</title>
+
+<style>
+*{box-sizing:border-box}
+
+body{
+  margin:0;
+  background:#100711;
+  color:white;
+  font-family:Arial,sans-serif;
+  text-align:center;
+  overflow:hidden;
+}
+
+.scene{
+  position:fixed;
+  inset:0;
+  display:none;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+  padding:22px;
+  overflow:hidden;
+  background:radial-gradient(circle,#542039,#100711 75%);
+}
+
+.scene.active{display:flex}
+
+h1{
+  color:#ff9acb;
+  text-shadow:0 0 15px #ff398d;
+}
+
+p{line-height:1.6}
+
+button,input{
+  border:0;
+  border-radius:25px;
+  padding:13px 20px;
+  margin:8px;
+  font-size:16px;
+}
+
+button{
+  background:#ff83b9;
+  color:#310c20;
+  font-weight:bold;
+  cursor:pointer;
+}
+
+button:active{transform:scale(.95)}
+
+input{
+  width:min(300px,90%);
+  background:white;
+  color:#222;
+}
+
+.heart{
+  font-size:85px;
+  animation:heartbeat 1s infinite alternate;
+}
+
+@keyframes heartbeat{
+  to{transform:scale(1.18)}
+}
+
+.halves{
+  display:flex;
+  gap:12px;
+  font-size:75px;
+}
+
+.halves span:first-child{
+  animation:leftHeart 2s forwards;
+}
+
+.halves span:last-child{
+  animation:rightHeart 2s forwards;
+}
+
+@keyframes leftHeart{
+  to{transform:translateX(25px)}
+}
+
+@keyframes rightHeart{
+  to{transform:translateX(-25px)}
+}
+
+.memories{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:9px;
+  width:min(340px,95%);
+}
+
+.memories img{
+  width:100%;
+  height:105px;
+  object-fit:cover;
+  border:2px solid #ff9acb;
+  border-radius:12px;
+  animation:photoIn 1s both;
+}
+
+.memories img:nth-child(2){animation-delay:.2s}
+.memories img:nth-child(3){animation-delay:.4s}
+.memories img:nth-child(4){animation-delay:.6s}
+.memories img:nth-child(5){animation-delay:.8s}
+
+@keyframes photoIn{
+  from{opacity:0;transform:scale(.1) rotate(-30deg)}
+  to{opacity:1;transform:scale(1) rotate(0)}
+}
+
+.rose{
+  font-size:110px;
+  animation:bloom 2s infinite alternate;
+}
+
+@keyframes bloom{
+  to{transform:scale(1.2) rotate(8deg)}
+}
+
+#petals{
+  position:fixed;
+  inset:0;
+  pointer-events:none;
+  z-index:10;
+}
+
+.petal{
+  position:absolute;
+  top:-40px;
+  animation:fall 3s linear forwards;
+}
+
+@keyframes fall{
+  to{
+    transform:translateY(110vh) rotate(720deg);
+    opacity:0;
+  }
+}
+
+.special{
+  max-width:90%;
+  max-height:45vh;
+  border:3px solid #ff9acb;
+  border-radius:16px;
+  object-fit:contain;
+  animation:photoIn 1.5s both;
+}
+
+.bears{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:25px;
+  font-size:85px;
+}
+
+.male{animation:fromRight 2s both}
+.female{animation:fromLeft 2s both}
+
+@keyframes fromRight{
+  from{transform:translateX(100vw)}
+  to{transform:translateX(0)}
+}
+
+@keyframes fromLeft{
+  from{transform:translateX(-100vw)}
+  to{transform:translateX(0)}
+}
+
+.hug{animation:hug .6s infinite alternate}
+
+@keyframes hug{
+  to{transform:scale(1.2)}
+}
+
+.floatHeart{
+  position:fixed;
+  bottom:-40px;
+  animation:floatUp 4s linear forwards;
+  pointer-events:none;
+}
+
+@keyframes floatUp{
+  to{
+    transform:translateY(-110vh) rotate(360deg);
+    opacity:0;
+  }
+}
+
+#music{
+  position:fixed;
+  z-index:20;
+  top:10px;
+  right:8px;
+  font-size:12px;
+  padding:10px 13px;
+}
+
+.small{font-size:13px;color:#ffd3e7}
+
+</style>
+</head>
+
+<body>
+
+<button id="music" onclick="toggleMusic()">♫ Music OFF</button>
+
+<audio id="song" src="song.mp3" loop></audio>
+
+<div id="petals"></div>
+
+<!-- SCENE 1: JOINING HEARTS -->
+
+<section class="scene active" id="s1">
+
+  <div class="halves">
+    <span>🖤</span>
+    <span>💗</span>
+  </div>
+
+  <h1>Two Hearts, One Story</h1>
+  <p>A special surprise made just for you ❤️</p>
+
+  <button onclick="startStory()">Start Our Story 💌</button>
+
+</section>
+
+
+<!-- SCENE 2: FIVE PHOTOS -->
+
+<section class="scene" id="s2">
+
+  <div class="heart">💖</div>
+
+  <h1>Our Beautiful Memories</h1>
+
+  <div class="memories">
+    <img src="memory1.jpg" alt="Memory 1">
+    <img src="memory2.jpg" alt="Memory 2">
+    <img src="memory3.jpg" alt="Memory 3">
+    <img src="memory4.jpg" alt="Memory 4">
+    <img src="memory5.jpg" alt="Memory 5">
+  </div>
+
+  <p>Every moment with you is special ✨</p>
+
+  <button onclick="show('s3')">Continue 🌹</button>
+
+</section>
+
+
+<!-- SCENE 3: PASSWORD -->
+
+<section class="scene" id="s3">
+
+  <div class="rose">🌹</div>
+
+  <h1>A Secret Rose</h1>
+  <p>Enter our special password to unlock your surprise.</p>
+
+  <input
+    id="password"
+    type="password"
+    placeholder="Enter password"
+  >
+
+  <button onclick="unlock()">Unlock ❤️</button>
+
+  <p id="error" class="small"></p>
+
+</section>
+
+
+<!-- SCENE 4: BLOOMING ROSE -->
+
+<section class="scene" id="s4">
+
+  <div class="rose">🌹</div>
+
+  <h1>For You, My Favourite Person</h1>
+  <p>Every petal carries a little piece of my heart.</p>
+
+  <button onclick="reveal()">Open Your Surprise 💗</button>
+
+</section>
+
+
+<!-- SCENE 5: SPECIAL PHOTO -->
+
+<section class="scene" id="s5">
+
+  <img class="special" src="special.jpg" alt="Our special photo">
+
+  <h1>Happy Birthday, My Love ❤️</h1>
+
+  <p>
+    You make my world more beautiful.
+    Every memory with you is a treasure.
+    You are my favourite part of every day.
+  </p>
+
+  <button onclick="showProposal()">One More Surprise 💌</button>
+
+</section>
+
+
+<!-- SCENE 6: PROPOSAL -->
+
+<section class="scene" id="s6">
+
+  <div class="bears" id="bears">
+    <span class="male">🧸</span>
+    <span class="female">🧸</span>
+  </div>
+
+  <div style="font-size:40px">🌹</div>
+
+  <h1>Will You Accept My Proposal?</h1>
+
+  <p>ARE YOU ACCEPT MY PROPOSAL? 💌</p>
+
+  <div>
+    <button onclick="answer(true)">YES ❤️</button>
+    <button onclick="answer(false)">NO</button>
+  </div>
+
+</section>
+
+
+<!-- SCENE 7: YES -->
+
+<section class="scene" id="s7">
+
+  <div class="bears hug">🧸❤️🧸</div>
+
+  <h1>YOU SAID YES! 💖</h1>
+
+  <p>
+    Two hearts, one beautiful story.
+    May our happiness grow every day.
+  </p>
+
+  <h2>Happy Birthday, My Love! 🎂</h2>
+
+  <button onclick="restart()">Replay Our Story ↻</button>
+
+</section>
+
+
+<!-- SCENE 8: NO -->
+
+<section class="scene" id="s8">
+
+  <div class="bears" id="goodbyeBears">
+    <span>🧸</span>
+    <span>🧸</span>
+  </div>
+
+  <h1>Always Wishing You Happiness 💗</h1>
+
+  <p>Thank you for being part of this little story.</p>
+
+  <button onclick="restart()">Replay Our Story ↻</button>
+
+</section>
+
+
+<script>
+
+// CHANGE THIS TO YOUR OWN PASSWORD
+const SECRET_PASSWORD = "rose123";
+
+let musicOn = false;
+
+const song = document.getElementById("song");
+
+function show(id){
+  document.querySelectorAll(".scene").forEach(scene=>{
+    scene.classList.remove("active");
+  });
+
+  document.getElementById(id).classList.add("active");
+}
+
+function startStory(){
+  show("s2");
+}
+
+function unlock(){
+
+  const entered =
+    document.getElementById("password").value;
+
+  if(entered === SECRET_PASSWORD){
+
+    document.getElementById("error").textContent = "";
+
+    show("s4");
+
+    makePetals();
+
+  }else{
+
+    document.getElementById("error").textContent =
+      "Incorrect password. Try again 💗";
+
+  }
+}
+
+function makePetals(){
+
+  const container = document.getElementById("petals");
+
+  container.innerHTML = "";
+
+  for(let i=0;i<35;i++){
+
+    const petal = document.createElement("div");
+
+    petal.className = "petal";
+    petal.textContent = ["🌸","🌹","💗"][i%3];
+
+    petal.style.left = Math.random()*100 + "%";
+    petal.style.animationDelay = Math.random()*2 + "s";
+    petal.style.fontSize = (18+Math.random()*20) + "px";
+
+    container.appendChild(petal);
+  }
+
+}
+
+function reveal(){
+
+  show("s5");
+
+  setTimeout(()=>{
+    if(document.getElementById("s5").classList.contains("active")){
+      document.querySelector(".special").style.opacity = "0";
+    }
+  },3500);
+
+}
+
+function showProposal(){
+
+  document.querySelector(".special").style.opacity = "1";
+
+  show("s6");
+
+}
+
+function answer(yes){
+
+  if(yes){
+
+    show("s7");
+    floatingHearts();
+
+  }else{
+
+    show("s8");
+
+    const bears = document.getElementById("goodbyeBears");
+    bears.children[0].animate(
+      [{transform:"translateX(0)"},{transform:"translateX(-100vw)"}],
+      {duration:1800,fill:"forwards"}
+    );
+
+    bears.children[1].animate(
+      [{transform:"translateX(0)"},{transform:"translateX(100vw)"}],
+      {duration:1800,fill:"forwards"}
+    );
+
+  }
+
+}
+
+function floatingHearts(){
+
+  for(let i=0;i<25;i++){
+
+    const heart = document.createElement("div");
+
+    heart.className = "floatHeart";
+    heart.textContent = ["💗","💖","💕","❤️"][i%4];
+
+    heart.style.left = Math.random()*100 + "vw";
+    heart.style.animationDelay = Math.random()*3 + "s";
+    heart.style.fontSize = (20+Math.random()*25) + "px";
+
+    document.body.appendChild(heart);
+
+    setTimeout(()=>heart.remove(),7000);
+
+  }
+
+}
+
+async function toggleMusic(){
+
+  if(!musicOn){
+
+    try{
+      await song.play();
+
+      musicOn = true;
+
+      document.getElementById("music").textContent =
+        "♫ Music ON";
+
+    }catch(error){
+
+      alert("Add song.mp3 to your repository first.");
+
+    }
+
+  }else{
+
+    song.pause();
+
+    musicOn = false;
+
+    document.getElementById("music").textContent =
+      "♫ Music OFF";
+
+  }
+
+}
+
+function restart(){
+
+  document.getElementById("password").value = "";
+
+  document.getElementById("error").textContent = "";
+
+  document.querySelector(".special").style.opacity = "1";
+
+  document.getElementById("petals").innerHTML = "";
+
+  document.querySelectorAll(".floatHeart").forEach(el=>el.remove());
+
+  show("s1");
+
+}
+
+</script>
+
+</body>
+</html>
+>
